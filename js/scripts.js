@@ -1,6 +1,5 @@
+MEMBERDATA = [];
 MEMBERLIST = [];
-hallå = "hallå";
-
 /**
  *
  *   Function that fetches JSON from API URL
@@ -13,21 +12,37 @@ hallå = "hallå";
  *
  */
 
-function fetchMemberList() {
-  console.log(">> fetchMemberList()");
+/**
+ *      Bootstrap
+ */
+fetchMemberData().then(() => {
+  main();
+});
 
-  return $.getJSON("json/data.json").then(function(data) {
-    MEMBERLIST = data.personlista.person;
+function fetchMemberData() {
+  console.log(">> fetchMemberData()");
+
+  return $.getJSON("json/data.json").then(data => {
+    MEMBERDATA = data.personlista.person;
+
+    for (i = 0; i < MEMBERDATA.length; i++) {
+      let member = {};
+      member["id"] = MEMBERDATA.hangar_id;
+      member["name"] = MEMBERDATA.tilltalsnamn;
+      member["surname"] = MEMBERDATA.efternamn;
+      member["born"] = MEMBERDATA.fodd_ar;
+      member["gender"] = MEMBERDATA.kon;
+      member["party"] = MEMBERDATA.parti;
+      member["area"] = MEMBERDATA.valkrets;
+      member["status"] = MEMBERDATA.status;
+      member["imgUrl"] = MEMBERDATA.bild_url_80;
+
+      MEMBERLIST.push(member);
+    }
   });
 }
 
-/**
- *      Bootstrap
- *      Fetch member list and then run main
- */
-fetchMemberList().then(() => {
-  main();
-});
+
 
 /**
  *      MAIN
@@ -35,12 +50,14 @@ fetchMemberList().then(() => {
 
 function main() {
   console.log(">> main()");
-  // console.log(MEMBERLIST);
+console.log(MEMBERLIST)
 
   // Print faces
-  MEMBERLIST.forEach(member => {
+  MEMBERLIST.forEach((member, i) => {
     console.log(">> MEMBERLIST.forEach");
 
-    // $('#main').append("<div class='memberbox' id="+member.hangar_id+"></div>");
+    $("#parliament").append(
+      "<li class='member' id="+member.id+"></li>"
+    );
   });
 }

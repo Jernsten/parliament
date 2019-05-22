@@ -1,26 +1,37 @@
-div.memberbox {
+ul#members {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+}
+ul#members li.memberbox {
   background-color: white;
-  display: block;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
   max-width: 108px;
   max-height: 95px;
   width: auto;
   height: auto;
 }
-div.memberbox > div {
+ul#members li.memberbox > div {
   display: inline-block;
   /* Change this to block and see what happens */
 }
-div.memberbox > div.triangleleft {
+ul#members li.memberbox > div.triangleleft {
   width: 0;
   height: 0;
   border-top: 95px solid red;
   border-right: 25px solid transparent;
 }
-div.memberbox > div.pic {
+ul#members li.memberbox > div.pic {
   width: 20px;
   height: 90px;
 }
-div.memberbox > div.triangleright {
+ul#members li.memberbox > div.triangleright {
   width: 0;
   height: 0;
   border-bottom: 95px solid red;
