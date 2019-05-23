@@ -1,3 +1,14 @@
+var partyColor = {
+  S: "#EE2020",
+  M: "#1B49DD;",
+  SD: "#DDDD00",
+  C: "#009933",
+  L: "#6BB7EC",
+  KD: "#231977",
+  MP: "#83CF39",
+  V: "#AF0000"
+};
+
 function init() {
   console.log(">> init");
 
@@ -42,6 +53,7 @@ function reduceMemberData(response) {
     member["area"] = person.valkrets;
     member["status"] = person.status;
     member["imgUrl"] = person.bild_url_80;
+    member["hidden"] = false; // For filtering
 
     reducedMemberList.push(member);
   });
@@ -51,14 +63,24 @@ function reduceMemberData(response) {
   return reducedMemberList;
 }
 
-function main(memberList) {
-  console.log(`>> main`);
+function populateParliament(memberList) {
+  console.log(">> populateParliament");
 
   let htmlListOfMembers = "";
   memberList.forEach(member => {
-    htmlListOfMembers += `<li class="member" id="${member.id}"></li>`;
+    htmlListOfMembers += 
+    `<li class="member"  name="${member.name} ${member.surname}" id="${member.id}" style="background-color: ${partyColor[member.party]};">
+      <img class="memberPic" src="${member.imgUrl}" alt="Foto på ledamöten"/>
+    </li>`;
   });
+
   document.getElementById("parliament").innerHTML = htmlListOfMembers;
+}
+
+function main(memberList) {
+  console.log(`>> main`);
+
+  populateParliament(memberList);
 }
 
 init();

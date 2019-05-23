@@ -1,4 +1,16 @@
-main#main {
+html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+html body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+html body main#main {
   width: 100%;
   height: 100%;
   padding: 0;
@@ -6,7 +18,24 @@ main#main {
   list-style: none;
   display: flex;
 }
-main#main > ul#parliament {
+html body main#main > ul#parliament {
   padding: 0;
   margin: 0;
+  width: 100%;
+  height: 100%;
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-content: space-around;
+}
+html body main#main > ul#parliament > li.member {
+  min-width: 24px;
+  min-height: 24px;
+  margin: 1px;
+  overflow: hidden;
+}
+html body main#main > ul#parliament > li.member > img.memberPic {
+  object-fit: contain;
+  border-radius: 40px;
 }
