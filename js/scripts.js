@@ -54,9 +54,11 @@ function reduceMemberData(response) {
 function main(memberList) {
   console.log(`>> main`);
 
+  let htmlListOfMembers = "";
   memberList.forEach(member => {
-    document.getElementById("parliament").innerHTML = `<li class="member" id="${member.id}"></li>`;
+    htmlListOfMembers += `<li class="member" id="${member.id}"></li>`;
   });
+  document.getElementById("parliament").innerHTML = htmlListOfMembers;
 }
 
 init();
