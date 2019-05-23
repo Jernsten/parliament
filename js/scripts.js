@@ -1,63 +1,62 @@
-MEMBERDATA = [];
-MEMBERLIST = [];
-/**
- *
- *   Function that fetches JSON from API URL
- *   Returns list of members in swedish government
- *
- *   For production: use API url below for live data
- *   'http://data.riksdagen.se/personlista/?utformat=json'
- *
- *   Snapshot 'json/data.json' can be used for dev purposes
- *
- */
+function init() {
+  console.log(">> init");
 
-/**
- *      Bootstrap
- */
-fetchMemberData().then(() => {
-  main();
-});
+  let xhr = new XMLHttpRequest();
 
-function fetchMemberData() {
-  console.log(">> fetchMemberData()");
+  xhr.open("GET", "json/data.json");
+  /*  For production: use API url below for live data
+   *   'http://data.riksdagen.se/personlista/?utformat=json'
+   */
 
-  return $.getJSON("json/data.json").then(data => {
-    MEMBERDATA = data.personlista.person;
+  xhr.responseType = "json";
 
-    for (i = 0; i < MEMBERDATA.length; i++) {
-      let member = {};
-      member["id"] = MEMBERDATA.hangar_id;
-      member["name"] = MEMBERDATA.tilltalsnamn;
-      member["surname"] = MEMBERDATA.efternamn;
-      member["born"] = MEMBERDATA.fodd_ar;
-      member["gender"] = MEMBERDATA.kon;
-      member["party"] = MEMBERDATA.parti;
-      member["area"] = MEMBERDATA.valkrets;
-      member["status"] = MEMBERDATA.status;
-      member["imgUrl"] = MEMBERDATA.bild_url_80;
+  xhr.send();
 
-      MEMBERLIST.push(member);
-    }
+  xhr.onerror = function() {
+    // only triggers if the request couldn't be made at all
+    alert("Network Error");
+  };
+
+  xhr.onload = function() {
+    console.log("---- API data loaded ----");
+
+    let reducedMemberList = reduceMemberData(xhr.response);
+    main(reducedMemberList);
+  };
+}
+
+function reduceMemberData(response) {
+  console.log(">> reduceMemberData");
+  let memberList = response.personlista.person;
+  let reducedMemberList = [];
+
+  memberList.forEach(function(person) {
+    let member = {};
+
+    member["id"] = person.hangar_id;
+    member["name"] = person.tilltalsnamn;
+    member["surname"] = person.efternamn;
+    member["born"] = person.fodd_ar;
+    member["gender"] = person.kon;
+    member["party"] = person.parti;
+    member["area"] = person.valkrets;
+    member["status"] = person.status;
+    member["imgUrl"] = person.bild_url_80;
+
+    reducedMemberList.push(member);
+  });
+
+  // console.log(reducedMemberList);
+  console.log(`<<< reduceMemberData`);
+  return reducedMemberList;
+}
+
+function main(memberList) {
+  console.log(`>> main`);
+
+  memberList.forEach(member => {
+    document.getElementById("parliament").innerHTML = `<li class="member" id="${member.id}"></li>`;
   });
 }
 
-
-
-/**
- *      MAIN
- */
-
-function main() {
-  console.log(">> main()");
-console.log(MEMBERLIST)
-
-  // Print faces
-  MEMBERLIST.forEach((member, i) => {
-    console.log(">> MEMBERLIST.forEach");
-
-    $("#parliament").append(
-      "<li class='member' id="+member.id+"></li>"
-    );
-  });
-}
+init();

@@ -1,47 +1,12 @@
-ul#members {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  display: flex;
-  justify-content: space-evenly;
-}
-ul#members li.memberbox {
-  background-color: white;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  display: flex;
-  justify-content: space-evenly;
-  max-width: 108px;
-  max-height: 95px;
-  width: auto;
-  height: auto;
-}
-ul#members li.memberbox > div {
-  display: inline-block;
-  /* Change this to block and see what happens */
-}
-ul#members li.memberbox > div.triangleleft {
-  width: 0;
-  height: 0;
-  border-top: 95px solid red;
-  border-right: 25px solid transparent;
-}
-ul#members li.memberbox > div.pic {
-  width: 20px;
-  height: 90px;
-}
-ul#members li.memberbox > div.triangleright {
-  width: 0;
-  height: 0;
-  border-bottom: 95px solid red;
-  border-left: 25px solid transparent;
-}
-#main {
+main#main {
   width: 100%;
   height: 100%;
   padding: 0;
   margin: 0;
   list-style: none;
   display: flex;
+}
+main#main > ul#parliament {
+  padding: 0;
+  margin: 0;
 }
