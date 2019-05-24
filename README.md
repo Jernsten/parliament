@@ -13,3 +13,8 @@ Skapa färg för ledamöter utan parti, i partyColor { -: "grå" }
 
 
 document.getElementsByClassName
+
+
+Ge divvarna classnamn för varje parti. Sedan när skiten skapas kan man lägga till classnamn på de objekten.
+Senare kan vi filtrera bort "alla S" till exempel, typ if class has "S" then hide, eller nåt.
+
